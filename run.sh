@@ -38,7 +38,6 @@ docker run --rm -it \
   --memory=6g \
   --cpus=8 \
   --user="${RUN_UID}:${RUN_GID}" \
-  --env HOME=/work \
   --mount type=bind,src="${HOST_WORKDIR}",dst=/work,readonly=false \
   "${EXTRA_ENTRYPOINT[@]}" \
   "$@" \

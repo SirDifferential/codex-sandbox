@@ -23,18 +23,18 @@ RUN apt-get update \
 	curl \
   && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -u 10001 -s /bin/bash codex \
-  && npm install -g "${CODEX_NPM_PKG}"
+RUN npm install -g "${CODEX_NPM_PKG}"
 
-ENV HOME=/home/codex
+ENV HOME=/home/ubuntu
 WORKDIR /work
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY bashrc /home/codex/.bashrc
-COPY .vimrc /home/codex/.vimrc
-COPY .tmux.conf /home/codex/.tmux.conf
+COPY bashrc /home/ubuntu/.bashrc
+COPY .vimrc /home/ubuntu/.vimrc
+COPY .tmux.conf /home/ubuntu/.tmux.conf
+COPY AGENTS.md /home/ubuntu/.codex/AGENTS.md
 RUN chmod 0755 /usr/local/bin/entrypoint.sh
 
-USER codex
+USER ubuntu
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
