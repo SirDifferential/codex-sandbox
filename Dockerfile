@@ -23,7 +23,7 @@ RUN apt-get update \
 	curl \
   && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g "${CODEX_NPM_PKG}"
+RUN npm install -g @openai/codex
 
 ENV HOME=/home/ubuntu
 WORKDIR /work
@@ -32,7 +32,7 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY bashrc /home/ubuntu/.bashrc
 COPY .vimrc /home/ubuntu/.vimrc
 COPY .tmux.conf /home/ubuntu/.tmux.conf
-COPY AGENTS.md /home/ubuntu/.codex/AGENTS.md
+COPY AGENTS.md /home/ubuntu/AGENTS.md
 RUN chmod 0755 /usr/local/bin/entrypoint.sh
 
 USER ubuntu

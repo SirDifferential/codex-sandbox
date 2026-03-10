@@ -13,4 +13,14 @@ if [[ ! -w /work ]]; then
   exit 1
 fi
 
-exec codex "$@"
+# Force codex state under /work
+export HOME=/work
+export CODEX_HOME=/work/.codex
+
+mkdir -p "${CODEX_HOME}"
+cp /home/ubuntu/AGENTS.md $CODEX_HOME/AGENTS.md
+if [[ "$#" -eq 0 ]]; then
+  exec /bin/bash -l
+fi
+
+exec /bin/bash "$@"
