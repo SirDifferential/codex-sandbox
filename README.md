@@ -8,13 +8,13 @@ This container setup runs Codex CLI with a read-only root filesystem and a manda
 docker build -t codex-sandbox:latest ~/codex-sandbox
 ```
 
-Optional: override the npm package name if needed.
+## What's inside
 
-```bash
-docker build -t codex-sandbox:latest \
-  --build-arg CODEX_NPM_PKG=codex \
-  ~/codex-sandbox
-```
+- Base image: Ubuntu 24.04
+- Node.js 20 (from Nodesource) and `@openai/codex` installed globally
+- Convenience tools: `git`, `tmux`, `vim`, `curl`, `build-essential`
+- Dotfiles: `bashrc` copied to `/home/ubuntu/.bashrc`, plus `.vimrc` and `.tmux.conf`
+- `AGENTS.md` copied into `/work/.codex/AGENTS.md` at container start
 
 ## Apply LAN Guard (nftables)
 
@@ -38,7 +38,7 @@ sudo ~/codex-sandbox/host-network-guard.sh remove
 
 ## API key
 
-Create OpenAI API key and save it to ~/.codex-key
+Create an OpenAI API key and save it to `~/.codex-key` on the host. `run.sh` reads this file and passes it into the container as `OPENAI_API_KEY`.
 
 ## Run
 
@@ -46,11 +46,11 @@ Create OpenAI API key and save it to ~/.codex-key
 bash ~/codex-sandbox/run.sh /path/to/workdir
 ```
 
-You can pass extra Docker args after the workdir if needed.
-
 ## Security Notes
 
 - Root filesystem is read-only; only `/work` is writable.
+- `/work` is mounted from the host workdir you pass to `run.sh`.
 - No container device passthrough and no privileged mode.
 - All Linux capabilities dropped and no-new-privileges enforced.
 - LAN access blocked for Docker bridge networks using nftables; public internet remains open.
+- The container runs as user `ubuntu`, with `HOME` and `CODEX_HOME` forced to `/work` by the entrypoint.
