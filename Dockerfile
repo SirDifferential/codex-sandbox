@@ -21,6 +21,8 @@ RUN apt-get update \
 	tmux \
 	vim \
 	curl \
+	jq \
+	python3-pil \
   && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g @openai/codex
