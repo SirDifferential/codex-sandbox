@@ -1,1 +1,3 @@
 *.swp
+.codex
+.bash_history

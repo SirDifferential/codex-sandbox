@@ -20,7 +20,10 @@ export CODEX_HOME=/work/.codex
 mkdir -p "${CODEX_HOME}"
 cp /home/ubuntu/AGENTS.md $CODEX_HOME/AGENTS.md
 if [[ "$#" -eq 0 ]]; then
-  exec /bin/bash -l
+  # HOME intentionally points at /work, so Bash would otherwise look for its
+  # startup files there. Load the image-provided interactive configuration
+  # explicitly instead of relying on ~/.bashrc resolution.
+  exec /bin/bash --rcfile /home/ubuntu/.bashrc -i
 fi
 
 exec /bin/bash "$@"

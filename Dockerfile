@@ -23,20 +23,42 @@ RUN apt-get update \
 	curl \
 	jq \
 	python3-pil \
-  && rm -rf /var/lib/apt/lists/*
+	python3-pefile \
+	ffmpeg \
+	imagemagick \
+	file \
+	bubblewrap \
+	ripgrep \
+	binutils \
+	cabextract \
+	wine \
+	winetricks \
+	xvfb \
+	wget
 
+RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y --no-install-recommends wine32:i386 && rm -rf /var/lib/apt/lists/*
 RUN npm install -g @openai/codex
 
 ENV HOME=/home/ubuntu
 WORKDIR /work
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY bashrc /home/ubuntu/.bashrc
+COPY .bashrc /home/ubuntu/.bashrc
 COPY .vimrc /home/ubuntu/.vimrc
 COPY .tmux.conf /home/ubuntu/.tmux.conf
 COPY AGENTS.md /home/ubuntu/AGENTS.md
 RUN chmod 0755 /usr/local/bin/entrypoint.sh
 
 USER ubuntu
+
+ENV WINEPREFIX=/home/ubuntu/.wine64
+ENV WINEARCH=win64
+
+RUN xvfb-run --auto-servernum wineboot --init && xvfb-run --auto-servernum winetricks -q dotnet40
+
+ENV WINEPREFIX=/home/ubuntu/.wine32
+ENV WINEARCH=win32
+
+RUN xvfb-run --auto-servernum wineboot --init && xvfb-run --auto-servernum winetricks -q dotnet40
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
