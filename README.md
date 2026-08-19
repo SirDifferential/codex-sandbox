@@ -2,7 +2,7 @@
 
 This container setup runs Codex CLI with a read-only root filesystem and a mandatory writable work directory at `/work`. LAN access is blocked at the host with nftables while public internet remains open. USB access is blocked at the container level by disallowing device passthrough and privileged mode.
 
-The container has the necessary tools for basic C and C++ coding, as well as 32-bit wine, winetricks, and dotnet40. 64-bit wine is also available but unconfigured.
+The container has the necessary tools for basic C and C++ coding, as well as 32-bit wine, winetricks, dotnet40, and reverse engineering tools. 64-bit wine is also available but unconfigured.
 
 ## Build
 
