@@ -37,7 +37,13 @@ Create an OpenAI API key and save it to `~/.codex-key` on the host. `run.sh` rea
 ## Run
 
 ```bash
-bash ~/codex-sandbox/run.sh /path/to/workdir && codex
+bash ~/codex-sandbox/run.sh /path/to/workdir
+```
+
+Inside container:
+
+```
+codex
 ```
 
 You may have to point Codex to read AGENTS.md in case the file is not read automatically.
