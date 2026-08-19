@@ -13,6 +13,7 @@ ARG DIE_SHA256=96e8e82e822e3ca8a829536312b92e8b241147fe38c8ab29c9dbfc1ab21aa25d
 ARG CUTTER_VERSION=2.5.0
 ARG CUTTER_SHA256=b8ad215d7a9e2af9e1f463511229f16e1f4745a0fb541413e5f4787f949ac0cf
 ARG CAPA_VERSION=9.4.0
+ARG CAPA_RULES_SHA256=79e37bb648dd7a912ff49e8d89bff022ea156d2567f8fe5080f9d6d03067ee02
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -123,6 +124,15 @@ RUN set -eux; \
 RUN set -eux; \
   python3 -m venv /opt/capa-venv; \
   /opt/capa-venv/bin/pip install --no-cache-dir "flare-capa==${CAPA_VERSION}"; \
+  capa_rules_zip="capa-rules-v${CAPA_VERSION}.zip"; \
+  curl -fL --retry 3 \
+    "https://github.com/mandiant/capa-rules/archive/refs/tags/v${CAPA_VERSION}.zip" \
+    -o "/tmp/${capa_rules_zip}"; \
+  echo "${CAPA_RULES_SHA256}  /tmp/${capa_rules_zip}" | sha256sum -c -; \
+  capa_root="$(/opt/capa-venv/bin/python -c 'import capa.main; print(capa.main.get_default_root())')"; \
+  unzip -q "/tmp/${capa_rules_zip}" -d /tmp; \
+  mv "/tmp/capa-rules-${CAPA_VERSION}" "${capa_root}/rules"; \
+  rm "/tmp/${capa_rules_zip}"; \
   ln -s /opt/capa-venv/bin/capa /usr/local/bin/capa
 
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y --no-install-recommends wine32:i386 && rm -rf /var/lib/apt/lists/*

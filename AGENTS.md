@@ -25,8 +25,8 @@ Do not download new software without permission. Instead, use the software alrea
 
 ## Malware analysis and file identification
 
-* Detect It Easy 3.21: `die` (GUI), `diec` (console), and `diel` (lightweight GUI) for identifying executable formats, packers, and compilers.
-* capa 9.4.0: `capa`, installed as `flare-capa` in `/opt/capa-venv`, for identifying executable capabilities. It is not the PyInstaller build, so it works when temporary filesystems prohibit executable mappings.
+* Detect It Easy 3.21: `diec` (console, GUI not available) for identifying executable formats, packers, and compilers.
+* capa 9.4.0: `capa`, installed as `flare-capa` in `/opt/capa-venv`, for identifying executable capabilities. It is not the PyInstaller build, so it works when temporary filesystems prohibit executable mappings. 
 * `file`: libmagic-based file type identification.
 * `python3-pefile`: the `pefile` Python module and associated PE-analysis utilities.
 * `python3-pil`: the Pillow Python imaging library for inspecting and transforming image data.
