@@ -10,14 +10,6 @@ The container has the necessary tools for basic C and C++ coding, as well as 32-
 docker build -t codex-sandbox:latest ~/codex-sandbox
 ```
 
-## What's inside
-
-- Base image: Ubuntu 24.04
-- Node.js 20 (from Nodesource) and `@openai/codex` installed globally
-- Convenience tools: `git`, `tmux`, `vim`, `curl`, `build-essential`
-- Dotfiles: `bashrc` copied to `/home/ubuntu/.bashrc`, plus `.vimrc` and `.tmux.conf`
-- `AGENTS.md` copied into `/work/.codex/AGENTS.md` at container start
-
 ## Apply LAN Guard (nftables)
 
 The guard installs drop rules into Docker's `DOCKER-USER` chain for both `ip` and `ip6`, and uses a dedicated `codex_sandbox` table to store the discovered Docker bridge interface set.
@@ -45,8 +37,10 @@ Create an OpenAI API key and save it to `~/.codex-key` on the host. `run.sh` rea
 ## Run
 
 ```bash
-bash ~/codex-sandbox/run.sh /path/to/workdir
+bash ~/codex-sandbox/run.sh /path/to/workdir && codex
 ```
+
+You may have to point Codex to read AGENTS.md in case the file is not read automatically.
 
 ## Security Notes
 
