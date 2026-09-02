@@ -38,6 +38,8 @@ Do not download new software without permission. Instead, use the software alrea
 * `ripgrep`: fast recursive text search via `rg`.
 * `cabextract`: Microsoft Cabinet archive extraction.
 * `unzip`: ZIP archive listing, testing, and extraction.
+* `poppler-utils`, `pdfplumber`, `pdftotext`, `pdfinfo`, `pypdf`: PDF parsing tools
+* `tesseract`: OCR tooling
 
 ## Media and image analysis
 

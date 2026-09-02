@@ -58,7 +58,17 @@ RUN apt-get update \
     libxcb-cursor0 \
     libxcb-xinerama0 \
     libxcb-xkb1 \
-    libxkbcommon-x11-0
+    libxkbcommon-x11-0 \
+	poppler-utils \
+	python3-pip \
+	python3-venv \
+	tesseract-ocr \
+	tesseract-ocr-fin
+
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
+RUN python3 -m pip install pdfplumber pypdf pytest
+RUN python3 -m pip install pytesseract
 
 # The upstream Linux packages for DIE, Cutter, and BinDiff are amd64-only.
 RUN test "$TARGETARCH" = amd64
