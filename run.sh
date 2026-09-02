@@ -16,6 +16,9 @@ if [[ ! -d "${HOST_WORKDIR}" ]]; then
   exit 1
 fi
 
+sudo bash host-network-guard.sh apply
+echo "host network guard up"
+
 IMAGE_NAME="${IMAGE_NAME:-codex-sandbox:latest}"
 RUN_UID="${RUN_UID:-$(id -u)}"
 RUN_GID="${RUN_GID:-$(id -g)}"
