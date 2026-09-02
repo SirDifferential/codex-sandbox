@@ -1,4 +1,5 @@
 * This Codex CLI instance runs inside a Docker container with extensive restrictions. The file system is read-only except for a single directory /work. Internet access is fully available.
+* LAN access is blocked
 * Ask for permission when deleting any files under /work
 * Ask for permission when downloading anything
 
