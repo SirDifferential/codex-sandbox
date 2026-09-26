@@ -115,9 +115,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-alias plant="ssh -p 1995 gekko@plantmonster.net"
-alias c="sensors | grep -i core"
-alias photo="rsync -ave 'ssh -p 1995' gekko@plantmonster.net:/home/gekko/phone_rsync/Camera/ ."
-alias gl="git log --graph --decorate --pretty=tformat:'%C(red)%h%d %C(bold blue)%aN%Creset %C(green)%ar%Creset <> %<|(60)%s ' --abbrev-commit --all"
-alias grip="git grep"
